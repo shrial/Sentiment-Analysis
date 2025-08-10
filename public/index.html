@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analyzer</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; 
+        }
+        /* A subtle transition for the result card */
+        #result-card {
+            transition: all 0.4s ease-in-out;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        #result-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8 space-y-6">
+        
+        <!-- Header -->
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-900">Sentiment Analyzer</h1>
+            <p class="mt-2 text-gray-600">Enter a sentence or review to find out if it's positive or negative.</p>
+        </div>
+
+        <!-- Input Form -->
+        <form id="sentiment-form">
+            <textarea id="review-text" rows="5" class="w-full p-3 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="e.g., 'The movie was fantastic, a true masterpiece!'"></textarea>
+            
+            <button id="analyze-btn" type="submit" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100">
+                <span id="btn-text">Analyze</span>
+                <!-- Simple spinner for loading state -->
+                <span id="btn-loader" class="hidden animate-spin"></span>
+            </button>
+        </form>
+
+        <!-- Result Display Area -->
+        <div id="result-card" class="p-5 rounded-lg text-center">
+            <h2 id="result-text" class="text-xl font-semibold"></h2>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Get references to the HTML elements ---
+        const sentimentForm = document.getElementById('sentiment-form');
+        const reviewText = document.getElementById('review-text');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnLoader = document.getElementById('btn-loader');
+        const resultCard = document.getElementById('result-card');
+        const resultText = document.getElementById('result-text');
+
+        // --- Handle the form submission ---
+        sentimentForm.addEventListener('submit', function(event) {
+            // Prevent the form from actually submitting and reloading the page
+            event.preventDefault();
+
+            const textToAnalyze = reviewText.value;
+            if (!textToAnalyze.trim()) return; // Do nothing if the text is empty
+
+            // --- Show loading state ---
+            btnText.classList.add('hidden');
+            btnLoader.classList.remove('hidden');
+            analyzeBtn.disabled = true;
+            resultCard.classList.remove('visible'); // Hide previous result
+
+            // --- Call the Backend API ---
+            // This is the most important part. It sends the user's text to your API.
+            // The URL '/api/predict' is relative, which works perfectly with Vercel's monorepo deployment.
+            fetch('/api/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ review: textToAnalyze }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // --- Display the successful result ---
+                displayResult(data.sentiment);
+            })
+            .catch(error => {
+                // --- Display an error message ---
+                console.error('Error:', error);
+                displayResult('Error');
+            })
+            .finally(() => {
+                // --- Hide loading state ---
+                btnText.classList.remove('hidden');
+                btnLoader.classList.add('hidden');
+                analyzeBtn.disabled = false;
+            });
+        });
+
+        // --- Function to update the UI with the result ---
+        function displayResult(sentiment) {
+            let sentimentClass = '';
+            let sentimentText = `Sentiment: ${sentiment}`;
+
+            if (sentiment === 'Positive') {
+                sentimentClass = 'bg-green-100 text-green-800';
+            } else if (sentiment === 'Negative') {
+                sentimentClass = 'bg-red-100 text-red-800';
+            } else { // Handle Neutral or Error cases
+                sentimentClass = 'bg-gray-100 text-gray-800';
+                if (sentiment === 'Error') {
+                   sentimentText = 'Could not get a prediction.';
+                }
+            }
+
+            resultText.textContent = sentimentText;
+            resultCard.className = `p-5 rounded-lg text-center ${sentimentClass} visible`;
+        }
+    </script>
+
+</body>
+</html>
