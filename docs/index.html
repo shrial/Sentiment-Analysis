@@ -6,7 +6,7 @@
     <title>Sentiment Analyzer</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -30,14 +30,11 @@
 <body class="flex items-center justify-center min-h-screen p-4">
 
     <div class="w-full max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8 space-y-6">
-        
-        <!-- Header -->
         <div class="text-center">
             <h1 class="text-3xl font-bold text-gray-900">Sentiment Analyzer</h1>
-            <p class="mt-2 text-gray-600">Enter a sentence or review to find out if it's positive or negative.</p>
+            <p class="mt-2 text-gray-600">Enter review to find out if it's positive or negative.</p>
         </div>
 
-        <!-- Input Form -->
         <form id="sentiment-form">
             <textarea id="review-text" rows="5" class="w-full p-3 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="e.g., 'The movie was fantastic, a true masterpiece!'"></textarea>
             
@@ -56,7 +53,6 @@
     </div>
 
     <script>
-        // --- Get references to the HTML elements ---
         const sentimentForm = document.getElementById('sentiment-form');
         const reviewText = document.getElementById('review-text');
         const analyzeBtn = document.getElementById('analyze-btn');
@@ -65,7 +61,6 @@
         const resultCard = document.getElementById('result-card');
         const resultText = document.getElementById('result-text');
 
-        // --- Handle the form submission ---
         sentimentForm.addEventListener('submit', function(event) {
             // Prevent the form from actually submitting and reloading the page
             event.preventDefault();
