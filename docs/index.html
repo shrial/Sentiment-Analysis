@@ -79,7 +79,9 @@
             analyzeBtn.disabled = true;
             resultCard.classList.remove('visible'); // Hide previous result
 
-            fetch('/api/predict', {
+            const apiUrl = 'https://sentiment-analysis-shrika.onrender.com'; 
+
+            fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +90,7 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
