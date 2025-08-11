@@ -79,7 +79,7 @@
             analyzeBtn.disabled = true;
             resultCard.classList.remove('visible'); // Hide previous result
 
-            // Call the Backend API 
+            fetch('/api/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
