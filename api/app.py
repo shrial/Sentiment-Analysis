@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import joblib
 
 app=Flask(__name__)
+CORS(app) #to accept request from frontend webpage
 model = joblib.load('sentiment_analysis_model.joblib')
 
 @app.route('/')
