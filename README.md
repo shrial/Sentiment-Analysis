@@ -10,8 +10,9 @@ Created Multinomial Naive Bayes model first then worked with Linear Support Vect
 
 ## Frontend and Building API:
 A lightweight Flask API was built to serve the trained model. It accepts review text and returns the predicted sentiment in JSON format.<br>
-[Link for the webpage](https://shrial.github.io/Sentiment-Analysis/) <br>
-[Link for api created](https://sentiment-analysis-shrika.onrender.com) (Note: this link is for homepage, for model to access endpoint is /predict)
+[Link for the webpage](https://shrial.github.io/Sentiment-Analysis/) (Note: It will take about a minute for the analysis for first request due to period of inactivity)<br>
+[Link for api created](https://sentiment-analysis-shrika.onrender.com) 
+(Note for using api: this link is for homepage, for model to access endpoint is /predict)
 
 ## Tech Stack:
 1. ML:
