@@ -8,12 +8,12 @@ Created Multinomial Naive Bayes model first then worked with Linear Support Vect
 2. Multinomial Naive Bayes model: Made a pipeline and for vectorization, used TF-IDF instead of Count vectorizer. Got an accuracy of 86.35% and size of dataset here was all the 50,000 reviews.
 3. Linear Support Vector Machine: Used LinearSVC with ngrams and tfidf on 20,000 reviews to get accuracy of 90.74%.
 
-##Frontend and Building API:
+## Frontend and Building API:
 A lightweight Flask API was built to serve the trained model. It accepts review text and returns the predicted sentiment in JSON format.
-[Link for the webpage](https://shrial.github.io/Sentiment-Analysis/)
+[Link for the webpage](https://shrial.github.io/Sentiment-Analysis/) <br>
 [Link for api created](https://sentiment-analysis-shrika.onrender.com) (Note: this link is for homepage, for model to access endpoint is /predict)
 
-##Tech Stack:
+## Tech Stack:
 1. ML:
    - Scikit-learn, pandas, NumPy, joblib: for preprocessing data,training and testing the model, and exporting it
    - Matplotlib and seaborn : for visualizing confusion matrix
