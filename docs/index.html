@@ -79,10 +79,7 @@
             analyzeBtn.disabled = true;
             resultCard.classList.remove('visible'); // Hide previous result
 
-            // --- Call the Backend API ---
-            // This is the most important part. It sends the user's text to your API.
-            // The URL '/api/predict' is relative, which works perfectly with Vercel's monorepo deployment.
-            fetch('/api/predict', {
+            // Call the Backend API 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,23 +93,20 @@
                 return response.json();
             })
             .then(data => {
-                // --- Display the successful result ---
                 displayResult(data.sentiment);
             })
             .catch(error => {
-                // --- Display an error message ---
                 console.error('Error:', error);
                 displayResult('Error');
             })
             .finally(() => {
-                // --- Hide loading state ---
                 btnText.classList.remove('hidden');
                 btnLoader.classList.add('hidden');
                 analyzeBtn.disabled = false;
             });
         });
 
-        // --- Function to update the UI with the result ---
+        // update the UI with the result
         function displayResult(sentiment) {
             let sentimentClass = '';
             let sentimentText = `Sentiment: ${sentiment}`;
@@ -121,7 +115,7 @@
                 sentimentClass = 'bg-green-100 text-green-800';
             } else if (sentiment === 'Negative') {
                 sentimentClass = 'bg-red-100 text-red-800';
-            } else { // Handle Neutral or Error cases
+            } else { 
                 sentimentClass = 'bg-gray-100 text-gray-800';
                 if (sentiment === 'Error') {
                    sentimentText = 'Could not get a prediction.';
