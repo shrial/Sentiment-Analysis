@@ -18,7 +18,7 @@ A lightweight Flask API was built to serve the trained model. It accepts review 
 1. ML:
    - Scikit-learn, pandas, NumPy, joblib: for preprocessing data,training and testing the model, and exporting it
    - Matplotlib and seaborn : for visualizing confusion matrix
-2. Frontend: HTML, tailwind CSSS, javascript
+2. Frontend: HTML, tailwind CSS, javascript
 3. Backend: Python, Flask
 
 
