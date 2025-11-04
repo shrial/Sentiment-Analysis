@@ -5,7 +5,7 @@ User enters a movie review on the webpage for analysis. The review is sent to th
 ## Building and Training the model:
 Created Multinomial Naive Bayes model first then worked with Linear Support Vector Machine to get better results.
 1. Dataset: Used the 50,000 review IMDB dataset  [Link to the dataset](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
-2. Multinomial Naive Bayes model: Made a pipeline and for vectorization, used TF-IDF instead of Count vectorizer. Got an accuracy of 86.35% and size of dataset here was all the 50,000 reviews.
+2. Multinomial Naive Bayes model: Made a pipeline and for vectorization, used TF-IDF instead of Count vectorizer. Got an accuracy of 86.35% and size of dataset here was 40,000 reviews.
 3. Linear Support Vector Machine: Used LinearSVC with ngrams and tfidf on 20,000 features to get accuracy of 90.74%.
 
 ## Frontend and Building API:
